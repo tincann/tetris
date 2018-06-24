@@ -1,4 +1,4 @@
-﻿namespace Tetris.Console
+﻿namespace Tetris.Game
 {
     public enum BlockOrientation
     {

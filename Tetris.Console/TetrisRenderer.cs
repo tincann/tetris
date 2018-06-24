@@ -1,30 +1,28 @@
-﻿using System.Collections.Generic;
+﻿using Tetris.Game;
 using Tetris.Utility;
 
 namespace Tetris.Console
 {
-    public class TetrisRenderer
+    public class TetrisRenderer : ITetrisRenderer
     {
-        private readonly bool[,] _screen = new bool[10, 15];
+        private readonly bool[,] _screen;
 
-        private readonly List<Block> _blocks = new List<Block>();
-
-        public void AddBlock(Block block)
+        public TetrisRenderer(int width, int height)
         {
-            _blocks.Add(block);
+            _screen = new bool[width, height];
         }
 
-        public void Draw()
+        public void Render(TetrisGameState state)
         {
             System.Console.Clear();
             ClearBuffer();
-            FillBuffer();
+            FillBuffer(state);
             DrawBuffer();
         }
 
-        private void FillBuffer()
+        private void FillBuffer(TetrisGameState state)
         {
-            foreach (var block in _blocks)
+            foreach (var block in state.Blocks)
             {
                 var (ox, oy) = block.Position;
                 foreach (var (dx, dy) in block.Shape.GetCoordinates())

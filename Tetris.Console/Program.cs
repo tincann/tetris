@@ -1,4 +1,5 @@
 ﻿using System.Threading;
+using Tetris.Game;
 
 namespace Tetris.Console
 {
@@ -6,25 +7,13 @@ namespace Tetris.Console
     {
         private static void Main(string[] args)
         {
-            var renderer = new TetrisRenderer();
-            var block = Block.FromShape(
-                "X   ",
-                "X   ",
-                "X   ",
-                "X   ");
-            renderer.AddBlock(block);
-            while (true)
-            {
-                block.MoveDown();
-                renderer.Draw();
-                Thread.Sleep(500);
+            var (width, height) = (10, 15);
 
-                if (block.Position.y > 15)
-                {
-                    break;
-                }
-            }
+            var renderer = new TetrisRenderer(width, height);
+            var game = new TetrisGame(new TetrisConfig { GameWidth = width, GameHeight = height }, renderer);
+            game.Run();
 
+            System.Console.WriteLine("Done");
             System.Console.ReadKey();
         }
     }

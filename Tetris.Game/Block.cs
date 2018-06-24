@@ -1,18 +1,24 @@
-﻿using System.Diagnostics;
-using System.Linq;
-
-namespace Tetris.Console
+﻿namespace Tetris.Game
 {
     public class Block
     {
-        private Block() { }
+        internal Block(BlockModel model, int x, int y, BlockOrientation orientation)
+        {
+            Model = model;
+            Orientation = orientation;
+            Position = (x, y);
+        }
 
+        private BlockModel Model { get; }
+
+        public bool[,] Shape => Model.Shape;
+        
         public (int x, int y) Position { get; private set; }
 
-        public bool[,] Shape { get; private set; }
+        public (int x1, int x2, int y1, int y2) Bounds =>
+            (Position.x, Position.x + Model.MaxWidth, Position.y, Position.y + Model.MaxHeight);
 
         public BlockOrientation Orientation { get; private set; }
-
 
         public void MoveDown()
         {
@@ -29,21 +35,9 @@ namespace Tetris.Console
             Orientation = (BlockOrientation)(((int)Orientation + 1) % 4);
         }
 
-        public static Block FromShape(params string[] shape)
+        public bool Intersects(Block other)
         {
-            (int maxWidth, int maxHeight) = (4, 4);
-            Debug.Assert(shape.Length == maxHeight && shape.First().Length == maxWidth);
-
-            var b = new Block();
-            b.Shape = new bool[maxWidth, maxHeight];
-
-            for (var y = 0; y < maxHeight; y++)
-            for (var x = 0; x < maxWidth; x++)
-            {
-                b.Shape[x, y] = shape[y][x] != ' ';
-            }
-
-            return b;
+            return BlockIntersection.Intersects(this, other);
         }
     }
 }
