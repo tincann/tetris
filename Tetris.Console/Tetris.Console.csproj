@@ -5,4 +5,9 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Tetris.Game\Tetris.Game.csproj" />
+    <ProjectReference Include="..\Tetris.Utility\Tetris.Utility.csproj" />
+  </ItemGroup>
+
 </Project>
