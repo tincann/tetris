@@ -42,6 +42,7 @@ namespace Tetris.Game
 
         private bool ShouldSpawnNewBlock(Block activeBlock)
         {
+            //todo calculate lowest point
             if (activeBlock.Position.y + 5 > _config.GameHeight)
             {
                 return true;

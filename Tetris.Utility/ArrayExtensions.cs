@@ -26,5 +26,15 @@ namespace Tetris.Utility
                 }
             }
         }
+
+        public static bool WithinBounds<TElement>(this TElement[,] array, (int x, int y) pos)
+        {
+            return WithinBounds(array, pos.x, pos.y);
+        }
+
+        public static bool WithinBounds<TElement>(this TElement[,] array, int x, int y)
+        {
+            return x >= 0 && y >= 0 && x < array.GetLength(0) && y < array.GetLength(1);
+        }
     }
 }

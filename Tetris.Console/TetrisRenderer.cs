@@ -29,12 +29,8 @@ namespace Tetris.Console
                 {
                     var x = ox + dx;
                     var y = oy + dy;
-                    if (!WithinBounds(x, y))
-                    {
-                        continue;
-                    }
 
-                    if (block.Shape[dx, dy])
+                    if (_screen.WithinBounds(x, y) && block.Shape[dx, dy])
                     {
                         _screen[x, y] = true;
                     }
@@ -53,11 +49,6 @@ namespace Tetris.Console
                 }
                 System.Console.Write("\n");
             }
-        }
-
-        private bool WithinBounds(int x, int y)
-        {
-            return x >= 0 && y >= 0 && x < _screen.GetLength(0) && y < _screen.GetLength(1);
         }
 
         private void ClearBuffer()

@@ -17,8 +17,8 @@ namespace Tetris.Game
 
         public static BlockModel FromShape(params string[] shape)
         {
-            (int maxWidth, int maxHeight) = (5, 5);
-            Debug.Assert(shape.Length == maxHeight && shape.First().Length == maxWidth);
+            Debug.Assert(shape.Select(x => x.Length).Distinct().Count() == 1, "Given shape is not rectangular");
+            (int maxWidth, int maxHeight) = (shape.First().Length, shape.Length);
 
             var b = new BlockModel
             {
