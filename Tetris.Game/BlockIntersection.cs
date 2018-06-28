@@ -9,10 +9,10 @@ namespace Tetris.Game
     {
         public static bool Intersects(Block block1, Block block2)
         {
-            if (!Overlaps(block1, block2))
-            {
-                return false;
-            }
+            //if (!Overlaps(block1, block2))
+            //{
+            //    return false;
+            //}
 
             var shift = (x: block2.Position.x - block1.Position.x, y: block2.Position.y - block1.Position.y);
 
@@ -32,12 +32,12 @@ namespace Tetris.Game
             return false;
         }
 
-        private static bool Overlaps(Block block1, Block block2)
-        {
-            var b1 = block1.Bounds;
-            var b2 = block2.Bounds;
-            return b1.x1 < b2.x2 && b1.x2 > b2.x1 &&
-                   b1.y1 < b2.y2 && b1.y2 > b2.y1;
-        }
+        //private static bool Overlaps(Block block1, Block block2)
+        //{
+        //    var b1 = block1.Bounds;
+        //    var b2 = block2.Bounds;
+        //    return b1.x1 < b2.x2 && b1.x2 > b2.x1 &&
+        //           b1.y1 < b2.y2 && b1.y2 > b2.y1;
+        //}
     }
 }

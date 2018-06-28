@@ -8,15 +8,17 @@ namespace Tetris.Game.Test
 
         public void TestIntersectionSingle()
         {
-            var model = BlockModel.FromShape(
+            var b = BlockModel.FromShape(
                 "   ",
                 " X ",
                 "   "
-                );
-            
-            var b1 = model.Spawn(0, 0);
-            var b2 = model.Spawn(0, 0);
+                ).Spawn(0, 0);
 
+            new Block()
+
+
+            
+            
             Assert.True(b1.Intersects(b2));
 
             for (var dy = -1; dy <= 1; dy++)

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Diagnostics;
 using System.Linq;
+using Tetris.Utility;
 
 namespace Tetris.Game
 {
@@ -17,21 +18,10 @@ namespace Tetris.Game
 
         public static BlockModel FromShape(params string[] shape)
         {
-            Debug.Assert(shape.Select(x => x.Length).Distinct().Count() == 1, "Given shape is not rectangular");
-            (int maxWidth, int maxHeight) = (shape.First().Length, shape.Length);
-
-            var b = new BlockModel
+            return new BlockModel
             {
-                Shape = new bool[maxWidth, maxHeight]
+                Shape = GridHelper.CreateFromString(shape)
             };
-
-            for (var y = 0; y < maxHeight; y++)
-            for (var x = 0; x < maxWidth; x++)
-            {
-                b.Shape[x, y] = shape[y][x] != ' ';
-            }
-
-            return b;
         }
     }
 }

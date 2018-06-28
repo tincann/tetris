@@ -8,7 +8,7 @@ namespace Tetris.Game
         private readonly TetrisConfig _config;
         private readonly ITetrisRenderer _renderer;
 
-        private readonly TetrisGameState _gameState = new TetrisGameState();
+        private readonly TetrisGameState _gameState;
         private readonly BlockSpawner _spawner;
 
         public TetrisGame(TetrisConfig config, ITetrisRenderer renderer)
@@ -16,11 +16,11 @@ namespace Tetris.Game
             _config = config;
             _renderer = renderer;
             _spawner = new BlockSpawner(_config.GameWidth / 2, 0, BlockModels.Types);
+            _gameState = TetrisGameState.CreateFromConfig(config);
         }
 
         public void Run()
         {
-
             var activeBlock = SpawnBlock();
             while (true)
             {
@@ -31,6 +31,7 @@ namespace Tetris.Game
 
                 if (ShouldSpawnNewBlock(activeBlock))
                 {
+                    _gameState.Grid.Freeze(activeBlock);
                     activeBlock = SpawnBlock();
                     if (ShouldSpawnNewBlock(activeBlock))
                     {
@@ -42,13 +43,7 @@ namespace Tetris.Game
 
         private bool ShouldSpawnNewBlock(Block activeBlock)
         {
-            //todo calculate lowest point
-            if (activeBlock.Position.y + 5 > _config.GameHeight)
-            {
-                return true;
-            }
-
-            if (_gameState.Blocks.Where(b => b != activeBlock).Any(b => b.Intersects(activeBlock)))
+            if (_gameState.Grid.Intersects(activeBlock, (0, 1)))
             {
                 return true;
             }
@@ -59,7 +54,7 @@ namespace Tetris.Game
         private Block SpawnBlock()
         {
             var activeBlock = _spawner.SpawnRandomBlock();
-            _gameState.AddBlock(activeBlock);
+            _gameState.ActiveBlock = activeBlock;
             return activeBlock;
         }
     }

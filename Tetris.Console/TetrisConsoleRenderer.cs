@@ -1,13 +1,15 @@
-﻿using Tetris.Game;
+﻿using System.Linq;
+using System.Text;
+using Tetris.Game;
 using Tetris.Utility;
 
 namespace Tetris.Console
 {
-    public class TetrisRenderer : ITetrisRenderer
+    public class TetrisConsoleRenderer : ITetrisRenderer
     {
-        private readonly bool[,] _screen;
+        private bool[,] _screen;
 
-        public TetrisRenderer(int width, int height)
+        public TetrisConsoleRenderer(int width, int height)
         {
             _screen = new bool[width, height];
         }
@@ -22,33 +24,31 @@ namespace Tetris.Console
 
         private void FillBuffer(TetrisGameState state)
         {
-            foreach (var block in state.Blocks)
+            _screen = state.Grid.Blocks;
+            if (state.ActiveBlock != null)
             {
-                var (ox, oy) = block.Position;
-                foreach (var (dx, dy) in block.Shape.GetCoordinates())
-                {
-                    var x = ox + dx;
-                    var y = oy + dy;
-
-                    if (_screen.WithinBounds(x, y) && block.Shape[dx, dy])
-                    {
-                        _screen[x, y] = true;
-                    }
-                }
+                var block = state.ActiveBlock;
+                _screen.Imprint(block.Shape, block.Position);
             }
         }
 
         private void DrawBuffer()
         {
+            var sb = new StringBuilder();
             for (var y = 0; y < _screen.GetLength(1); y++)
             {
+                sb.Append("|");
                 for (var x = 0; x < _screen.GetLength(0); x++)
                 {
                     var p = _screen[x, y] ? "X" : " ";
-                    System.Console.Write(p);
+                    sb.Append(p);
                 }
-                System.Console.Write("\n");
+                sb.AppendLine($"|{y}");
             }
+
+            var hLine = "`" + new string(Enumerable.Repeat('-', _screen.GetLength(0)).ToArray()) + "`";
+            sb.AppendLine(hLine);
+            System.Console.Write(sb.ToString());
         }
 
         private void ClearBuffer()

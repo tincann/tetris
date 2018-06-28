@@ -1,15 +1,20 @@
-﻿using System.Collections.Generic;
-
-namespace Tetris.Game
+﻿namespace Tetris.Game
 {
     public class TetrisGameState
     {
-        public IReadOnlyCollection<Block> Blocks => _blocks;
-        internal readonly List<Block> _blocks = new List<Block>();
 
-        internal void AddBlock(Block block)
+        public BlockGrid Grid { get; private set; }
+        public Block ActiveBlock { get; set; }
+
+        private TetrisGameState() { }
+
+        public static TetrisGameState CreateFromConfig(TetrisConfig config)
         {
-            _blocks.Add(block);
+            return new TetrisGameState
+            {
+                ActiveBlock = null,
+                Grid = new BlockGrid(config.GameWidth, config.GameHeight)
+            };
         }
     }
 }

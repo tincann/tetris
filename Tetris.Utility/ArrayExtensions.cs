@@ -16,13 +16,19 @@ namespace Tetris.Utility
             }
         }
 
-        public static IEnumerable<(TElement element, int x, int y)> GetValues<TElement>(this TElement[,] array)
+        public static void Imprint<TElement>(this TElement[,] canvas, TElement[,] brush, (int x, int y) offset)
         {
-            for (var y = 0; y < array.GetLength(1); y++)
+            Imprint(canvas, brush, offset.x, offset.y);
+        }
+
+        public static void Imprint<TElement>(this TElement[,] canvas, TElement[,] brush, int offsetX, int offsetY)
+        {
+            foreach (var (bx, by) in brush.GetCoordinates())
             {
-                for (var x = 0; x < array.GetLength(0); x++)
+                var (x, y) = (offsetX + bx, offsetY + by);
+                if (canvas.WithinBounds(x, y) && !Equals(brush[bx, by], default(TElement)))
                 {
-                    yield return (array[x, y], x, y);
+                    canvas[x, y] = brush[bx, by];
                 }
             }
         }
