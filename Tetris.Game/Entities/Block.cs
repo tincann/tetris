@@ -1,4 +1,5 @@
-﻿using Tetris.Game.Constants;
+﻿using System;
+using Tetris.Game.Constants;
 
 namespace Tetris.Game.Entities
 {
@@ -17,9 +18,11 @@ namespace Tetris.Game.Entities
             Position = (x, y);
         }
 
-        public void MoveDown() => Position = (Position.x, Position.y + 1);
-        public void MoveLeft() => Position = (Position.x - 1, Position.y);
-        public void MoveRight() => Position = (Position.x + 1, Position.y);
+        public void Move(MoveDirection direction)
+        {
+            var v = direction.Vector;
+            Position = (Position.x + v.dx, Position.y + v.dy);
+        }
 
         public void RotateLeft()
         {
