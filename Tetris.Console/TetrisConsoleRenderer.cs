@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Text;
 using Tetris.Game;
+using Tetris.Game.Render;
 using Tetris.Utility;
 
 namespace Tetris.Console

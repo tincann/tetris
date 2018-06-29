@@ -1,4 +1,6 @@
-﻿namespace Tetris.Game
+﻿using Tetris.Game.Entities;
+
+namespace Tetris.Game
 {
     public class TetrisGameState
     {

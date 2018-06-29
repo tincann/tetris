@@ -1,5 +1,7 @@
 ﻿using System.Linq;
 using System.Threading;
+using Tetris.Game.Entities;
+using Tetris.Game.Render;
 
 namespace Tetris.Game
 {

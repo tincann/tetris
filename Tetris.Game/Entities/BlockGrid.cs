@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Tetris.Game.Entities;
 using Tetris.Utility;
 
 namespace Tetris.Game
@@ -20,6 +21,11 @@ namespace Tetris.Game
         public BlockGrid(int width, int height)
         {
             _grid = new bool[width, height];
+        }
+
+        public bool Intersects(Block block)
+        {
+            return Intersects(block, (0, 0));
         }
 
         public bool Intersects(Block block, (int dx, int dy) offset)

@@ -1,17 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Tetris.Game.Constants;
+using Tetris.Game.Entities;
 
 namespace Tetris.Game.Test
 {
     public class TestBlock : Block
     {
-        public TestBlock(BlockModel model, int x, int y, BlockOrientation orientation) : base(model, x, y, orientation)
+        private TestBlock(BlockModel model, int x, int y, BlockOrientation orientation) : base(model, x, y, orientation)
         {
         }
-        public void Pos(int x, int y)
+        public Block At(int x, int y, BlockOrientation orientation = BlockOrientation.North)
         {
-            Position = (x, y);
+            return new TestBlock(Model, x, y, orientation);
+        }
+
+        public static TestBlock Create(params string[] shape)
+        {
+            return new TestBlock(BlockModel.FromShape(shape), 0, 0, BlockOrientation.North);
         }
     }
 }

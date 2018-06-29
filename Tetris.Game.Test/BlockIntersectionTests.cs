@@ -8,26 +8,23 @@ namespace Tetris.Game.Test
 
         public void TestIntersectionSingle()
         {
-            var b = BlockModel.FromShape(
+            var block = TestBlock.Create(
                 "   ",
                 " X ",
-                "   "
-                ).Spawn(0, 0);
+                "   ");
 
-            new Block()
-
-
+            var grid = new BlockGrid(3, 3);
+            grid.Freeze(block);
             
             
-            Assert.True(b1.Intersects(b2));
+            Assert.True(grid.Intersects(block.At(0, 0)));
 
             for (var dy = -1; dy <= 1; dy++)
             for (var dx = -1; dx <= 1; dx++)
             {
                 if(dx == 0 && dy == 0) continue;
 
-                var bn = model.Spawn(dx, dy);
-                Assert.False(b1.Intersects(bn));
+                Assert.False(grid.Intersects(block.At(dx, dy)));
             }
         }
 
@@ -35,84 +32,84 @@ namespace Tetris.Game.Test
 
         public void TestIntersectionLineVertical()
         {
-            var model = BlockModel.FromShape(
+            var block = TestBlock.Create(
                 " X ",
                 " X ",
                 " X "
             );
 
-            var b1 = model.Spawn(0, 0);
+            var grid = new BlockGrid(3 ,3);
+            grid.Freeze(block);
 
-            Assert.True(b1.Intersects(model.Spawn(0, 0)));
-            Assert.False(b1.Intersects(model.Spawn(1, 0)));
-            Assert.False(b1.Intersects(model.Spawn(-1, 0)));
+            Assert.True(grid.Intersects(block.At(0, 0)));
+            Assert.False(grid.Intersects(block.At(1, 0)));
+            Assert.False(grid.Intersects(block.At(-1, 0)));
         }
 
         [Test]
 
         public void TestIntersectionLineHorizontal()
         {
-            var model = BlockModel.FromShape(
+            var block = TestBlock.Create(
                 "   ",
                 "XXX",
                 "   "
             );
+            var grid = new BlockGrid(3, 3);
+            grid.Freeze(block);
 
-            var b1 = model.Spawn(0, 0);
 
-            Assert.True(b1.Intersects(model.Spawn(0, 0)));
-            Assert.False(b1.Intersects(model.Spawn(0, -1)));
-            Assert.False(b1.Intersects(model.Spawn(0, 1)));
+            Assert.True(grid.Intersects(block.At(0, 0)));
+            Assert.False(grid.Intersects(block.At(0, -1)));
+            Assert.False(grid.Intersects(block.At(0, 1)));
         }
 
         [Test]
         public void TestOverlap()
         {
-            var model = BlockModel.FromShape(
+            var block = TestBlock.Create(
                 "XXX",
                 "XXX",
                 "XXX"
             );
 
-            var b1 = model.Spawn(0, 0);
+            var grid = new BlockGrid(9, 9);
+            grid.Freeze(block.At(3, 3));
 
-            Assert.False(b1.Intersects(model.Spawn(3, 0)));
-            Assert.False(b1.Intersects(model.Spawn(3, -3)));
-            Assert.False(b1.Intersects(model.Spawn(0, -3)));
-            Assert.False(b1.Intersects(model.Spawn(-3, 3)));
-            Assert.False(b1.Intersects(model.Spawn(0, 3)));
-
-            Assert.False(b1.Intersects(model.Spawn(0, 3)));
-            Assert.False(b1.Intersects(model.Spawn(-3, 3)));
-            Assert.False(b1.Intersects(model.Spawn(-3, 0)));
+            Assert.False(grid.Intersects(block.At(0, 0)));
+            Assert.False(grid.Intersects(block.At(4, 0)));
+            Assert.True(grid.Intersects(block.At(4, 1)));
+            Assert.False(grid.Intersects(block.At(0, 3)));
+            Assert.False(grid.Intersects(block.At(6, 6)));
+            Assert.False(grid.Intersects(block.At(4, 6)));
         }
 
 
-        [Test]
-        public void TestIntersectionFine()
-        {
-            var b1 = BlockModel.FromShape(
-                "XXX",
-                "X X",
-                "XXX"
-            ).Spawn(0,0);
+        //[Test]
+        //public void TestIntersectionFine()
+        //{
+        //    var b1 = BlockModel.FromShape(
+        //        "XXX",
+        //        "X X",
+        //        "XXX"
+        //    ).Spawn(0,0);
 
-            var model2 = BlockModel.FromShape(
-                "   ",
-                " X ",
-                "   "
-            );
+        //    var model2 = BlockModel.FromShape(
+        //        "   ",
+        //        " X ",
+        //        "   "
+        //    );
 
-            Assert.False(b1.Intersects(model2.Spawn(0,0)));
+        //    Assert.False(b1.Intersects(model2.Spawn(0,0)));
 
-            for (var dy = -1; dy <= 1; dy++)
-            for (var dx = -1; dx <= 1; dx++)
-            {
-                if (dx == 0 && dy == 0) continue;
+        //    for (var dy = -1; dy <= 1; dy++)
+        //    for (var dx = -1; dx <= 1; dx++)
+        //    {
+        //        if (dx == 0 && dy == 0) continue;
 
-                var bn = model2.Spawn(dx, dy);
-                Assert.True(b1.Intersects(bn));
-            }
-        }
+        //        var bn = model2.Spawn(dx, dy);
+        //        Assert.True(b1.Intersects(bn));
+        //    }
+        //}
     }
 }

@@ -1,16 +1,18 @@
-﻿namespace Tetris.Game
+﻿using Tetris.Game.Constants;
+
+namespace Tetris.Game.Entities
 {
     public class Block
     {
-        private readonly BlockModel _model;
-        public bool[,] Shape => _model.Shape;
-        public (int x, int y) Position { get; protected set; }
+        protected readonly BlockModel Model;
+        public bool[,] Shape => Model.Shape;
+        public (int x, int y) Position { get; private set; }
         
         public BlockOrientation Orientation { get; private set; }
 
         protected internal Block(BlockModel model, int x, int y, BlockOrientation orientation)
         {
-            _model = model;
+            Model = model;
             Orientation = orientation;
             Position = (x, y);
         }
