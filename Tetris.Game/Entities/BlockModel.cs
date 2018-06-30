@@ -13,7 +13,7 @@ namespace Tetris.Game
         public int MaxWidth => Shape.GetLength(0);
         public int MaxHeight => Shape.GetLength(1);
 
-        public Block Spawn(int x, int y, BlockOrientation orientation = BlockOrientation.North)
+        public Block Spawn(int x, int y, BlockOrientation orientation)
         {
             return new Block(this, x, y, orientation);
         }

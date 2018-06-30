@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Tetris.Game.Constants;
 using Tetris.Game.Entities;
 
 namespace Tetris.Game
@@ -21,7 +22,15 @@ namespace Tetris.Game
         {
             var i = _random.Next(_models.Count);
             var model = _models[i];
-            return model.Spawn(_spawnPosition.x, _spawnPosition.y);
+
+            var orientation = RandomOrientation();
+            return model.Spawn(_spawnPosition.x, _spawnPosition.y, orientation);
+        }
+
+        private BlockOrientation RandomOrientation()
+        {
+            var i = _random.Next(4);
+            return BlockOrientation.Orientations[i];
         }
     }
 }

@@ -17,7 +17,6 @@ namespace Tetris.Console
 
         public void Render(TetrisGameState state)
         {
-            System.Console.Clear();
             ClearBuffer();
             FillBuffer(state);
             DrawBuffer();
@@ -38,17 +37,18 @@ namespace Tetris.Console
             var sb = new StringBuilder();
             for (var y = 0; y < _screen.GetLength(1); y++)
             {
-                sb.Append("|");
+                sb.Append("| ");
                 for (var x = 0; x < _screen.GetLength(0); x++)
                 {
-                    var p = _screen[x, y] ? "X" : " ";
+                    var p = _screen[x, y] ? "X " : "  ";
                     sb.Append(p);
                 }
                 sb.AppendLine($"|{y}");
             }
 
-            var hLine = "`" + new string(Enumerable.Repeat('-', _screen.GetLength(0)).ToArray()) + "`";
+            var hLine = "`" + new string(Enumerable.Repeat('-', _screen.GetLength(0) * 2 + 1).ToArray()) + "`";
             sb.AppendLine(hLine);
+            System.Console.Clear();
             System.Console.Write(sb.ToString());
         }
 

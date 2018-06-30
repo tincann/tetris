@@ -65,19 +65,35 @@ namespace Tetris.Game
                     case GameAction.MoveDown:
                         MoveActiveBlock(MoveDirection.Down);
                         break;
+                    case GameAction.Rotate:
+                        RotateActiveBlock();
+                        break;
                 }
 
                 Thread.Sleep(pollInterval);
                 total += pollInterval;
             }
         }
+        private void RotateActiveBlock()
+        {
+            var block = _gameState.ActiveBlock;
+            block.RotateRight();
 
+            if (_gameState.Grid.Intersects(block))
+            {
+                block.RotateLeft();
+            }
+            else
+            {
+                _renderer.Render(_gameState);
+            }
+        }
         private void MoveActiveBlock(MoveDirection direction)
         {
             var block = _gameState.ActiveBlock;
             if (!_gameState.Grid.Intersects(block, direction.Vector))
             {
-                _gameState.ActiveBlock.Move(direction);
+                block.Move(direction);
                 _renderer.Render(_gameState);
             }
         }

@@ -24,6 +24,8 @@ namespace Tetris.Console
                     return GameAction.MoveRight;
                 case ConsoleKey.DownArrow:
                     return GameAction.MoveDown;
+                case ConsoleKey.UpArrow:
+                    return GameAction.Rotate;
                 case ConsoleKey.Escape:
                     return GameAction.Pause;
                 default:

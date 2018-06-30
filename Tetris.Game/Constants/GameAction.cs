@@ -7,5 +7,6 @@
         MoveLeft = 2,
         MoveRight = 3,
         MoveDown = 4,
+        Rotate = 5,
     }
 }
