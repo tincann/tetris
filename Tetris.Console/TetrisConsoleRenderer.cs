@@ -48,7 +48,7 @@ namespace Tetris.Console
 
             var hLine = "`" + new string(Enumerable.Repeat('-', _screen.GetLength(0) * 2 + 1).ToArray()) + "`";
             sb.AppendLine(hLine);
-            System.Console.Clear();
+            System.Console.SetCursorPosition(0, 0);
             System.Console.Write(sb.ToString());
         }
 
