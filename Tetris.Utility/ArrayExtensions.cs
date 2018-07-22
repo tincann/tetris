@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Tetris.Utility
 {
@@ -14,6 +15,35 @@ namespace Tetris.Utility
                     yield return (x, y);
                 }
             }
+        }
+
+        public static void SetRow<TElement>(this TElement[,] array, int y, TElement[] row)
+        {
+            for (var x = 0; x < array.GetLength(0); x++)
+            {
+                array[x, y] = row[x];
+            }
+        }
+
+        public static TElement[] GetRow<TElement>(this TElement[,] array, int y)
+        {
+            var row = new TElement[array.GetLength(0)];
+            for (var x = 0; x < array.GetLength(0); x++)
+            {
+                row[x] = array[x, y];
+            }
+            return row;
+        }
+
+        public static ICollection<(int row, TElement[] cols)> GetRows<TElement>(this TElement[,] array)
+        {
+            var rows = new List<(int, TElement[])>();
+            for (var y = 0; y < array.GetLength(1); y++)
+            {
+                var row = GetRow(array, y);
+                rows.Add((y, row));
+            }
+            return rows;
         }
 
         public static void Imprint<TElement>(this TElement[,] canvas, TElement[,] brush, (int x, int y) offset)

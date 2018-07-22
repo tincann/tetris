@@ -9,7 +9,7 @@ namespace Tetris.Console
         {
             var (width, height) = (10, 15);
 
-            var renderer = new TetrisConsoleRenderer(width, height);
+            var renderer = new TetrisConsoleRenderer(width * 2, height);
             var controller = new TetrisConsoleController();
 
             do

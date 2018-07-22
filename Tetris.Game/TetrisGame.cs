@@ -29,6 +29,8 @@ namespace Tetris.Game
             SpawnBlock();
             while (true)
             {
+                NullifyFullRows();
+
                 MoveActiveBlock(MoveDirection.Down);
                 
                 HandleInput(TimeSpan.FromMilliseconds(500), TimeSpan.FromMilliseconds(20));
@@ -41,6 +43,15 @@ namespace Tetris.Game
                         break;
                     }
                 }
+            }
+        }
+
+        private void NullifyFullRows()
+        {
+            var fullRowNumbers = _gameState.Grid.GetFullRows();
+            foreach (var rowNumber in fullRowNumbers)
+            {
+                _gameState.Grid.DeleteRowAndShiftDown(rowNumber);
             }
         }
 

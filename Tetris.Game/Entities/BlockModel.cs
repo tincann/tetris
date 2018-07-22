@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Diagnostics;
-using System.Linq;
-using Tetris.Game.Constants;
+﻿using Tetris.Game.Constants;
 using Tetris.Game.Entities;
 using Tetris.Utility;
 

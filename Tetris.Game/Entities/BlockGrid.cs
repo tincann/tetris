@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using Tetris.Game.Entities;
 using Tetris.Utility;
 
@@ -21,6 +23,39 @@ namespace Tetris.Game
         public BlockGrid(int width, int height)
         {
             _grid = new bool[width, height];
+        }
+
+        public ICollection<int> GetFullRows()
+        {
+            return _grid.GetRows()
+                .Where(r => r.cols.All(c => c))
+                .Select(x => x.row)
+                .ToList();
+        }
+
+        public void DeleteRowAndShiftDown(int rowNumber)
+        {
+            for (var y = rowNumber; y > 0; y--)
+            {
+                for (var x = 0; x < _grid.GetLength(0); x++)
+                {
+                    var row = _grid.GetRow(y - 1);
+                    _grid.SetRow(y, row);
+                }
+            }
+        }
+
+        public bool IsFull(int rowNumber)
+        {
+            for (var x = 0; x < _grid.GetLength(0); x++)
+            {
+                if (!_grid[x, rowNumber])
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         public bool Intersects(Block block)

@@ -15,7 +15,7 @@ namespace Tetris.Console
                 return GameAction.None;
             }
 
-            var key = System.Console.ReadKey(false);
+            var key = System.Console.ReadKey(true);
             switch (key.Key)
             {
                 case ConsoleKey.LeftArrow:

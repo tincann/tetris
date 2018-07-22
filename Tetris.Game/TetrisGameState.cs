@@ -8,6 +8,8 @@ namespace Tetris.Game
         public BlockGrid Grid { get; private set; }
         public Block ActiveBlock { get; set; }
 
+        public int Score { get; set; }
+
         private TetrisGameState() { }
 
         public static TetrisGameState CreateFromConfig(TetrisConfig config)

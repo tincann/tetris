@@ -8,56 +8,54 @@ namespace Tetris.Console
 {
     public class TetrisConsoleRenderer : ITetrisRenderer
     {
-        private bool[,] _screen;
+        private readonly int _gridWidth;
+        private readonly int _gridHeight;
 
-        public TetrisConsoleRenderer(int width, int height)
+        public TetrisConsoleRenderer(int gridWidth, int gridHeight)
         {
-            _screen = new bool[width, height];
-        }
+            _gridWidth = gridWidth;
+            _gridHeight = gridHeight;
 
+            System.Console.CursorVisible = false;
+        }
         public void Render(TetrisGameState state)
         {
-            ClearBuffer();
-            FillBuffer(state);
-            DrawBuffer();
+            DrawBlocks(state);
+            DrawScore(state);
         }
 
-        private void FillBuffer(TetrisGameState state)
+        private void DrawScore(TetrisGameState state)
         {
-            _screen = state.Grid.Blocks;
+            var (x, y) = (_gridWidth + 2 + 5, 4);
+            System.Console.SetCursorPosition(x, y);
+            System.Console.Write("Score: " + state.Score);
+        }
+
+        private static void DrawBlocks(TetrisGameState state)
+        {
+            var grid = state.Grid.Blocks;
             if (state.ActiveBlock != null)
             {
                 var block = state.ActiveBlock;
-                _screen.Imprint(block.Shape, block.Position);
+                grid.Imprint(block.Shape, block.Position);
             }
-        }
 
-        private void DrawBuffer()
-        {
             var sb = new StringBuilder();
-            for (var y = 0; y < _screen.GetLength(1); y++)
+            for (var y = 0; y < grid.GetLength(1); y++)
             {
                 sb.Append("| ");
-                for (var x = 0; x < _screen.GetLength(0); x++)
+                for (var x = 0; x < grid.GetLength(0); x++)
                 {
-                    var p = _screen[x, y] ? "X " : "  ";
+                    var p = grid[x, y] ? "\u2588\u2588" : "  ";
                     sb.Append(p);
                 }
                 sb.AppendLine($"|{y}");
             }
 
-            var hLine = "`" + new string(Enumerable.Repeat('-', _screen.GetLength(0) * 2 + 1).ToArray()) + "`";
+            var hLine = "`" + new string(Enumerable.Repeat('-', grid.GetLength(0) * 2 + 1).ToArray()) + "`";
             sb.AppendLine(hLine);
             System.Console.SetCursorPosition(0, 0);
             System.Console.Write(sb.ToString());
-        }
-
-        private void ClearBuffer()
-        {
-            foreach (var (x, y) in _screen.GetCoordinates())
-            {
-                _screen[x, y] = false;
-            }
         }
     }
 }
