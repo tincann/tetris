@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using Tetris.Game.Constants;
 using Tetris.Utility;
 
@@ -7,10 +8,12 @@ namespace Tetris.Game.Entities
     public class Block
     {
         protected readonly BlockModel Model;
-        public bool[,] Shape { get; private set; }
+        public int[,] Shape { get; private set; }
         public (int x, int y) Position { get; private set; }
 
         public BlockOrientation Orientation { get; private set; }
+
+        public int Type => Model.Type;
 
         protected internal Block(BlockModel model, int x, int y, BlockOrientation orientation)
         {
@@ -47,7 +50,7 @@ namespace Tetris.Game.Entities
 
         public void RotateLeft()
         {
-            var copy = new bool[Shape.GetLength(1), Shape.GetLength(0)];
+            var copy = new int[Shape.GetLength(1), Shape.GetLength(0)];
 
             foreach (var (x, y) in Shape.GetCoordinates())
             {
@@ -60,7 +63,7 @@ namespace Tetris.Game.Entities
 
         public void RotateRight()
         {
-            var copy = new bool[Shape.GetLength(1), Shape.GetLength(0)];
+            var copy = new int[Shape.GetLength(1), Shape.GetLength(0)];
 
             foreach (var (x, y) in Shape.GetCoordinates())
             {

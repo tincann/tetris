@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Drawing;
 
-namespace Tetris.Game
+namespace Tetris.Game.Entities
 {
     public static class BlockModels
     {
@@ -11,12 +12,13 @@ namespace Tetris.Game
         }.ToImmutableList();
 
         private static BlockModel Type1 => BlockModel.FromShape(
-            "  X  ",
+            1,
             "  X  ",
             "  X  ",
             "  X  ",
             "     ");
         private static BlockModel Type2 => BlockModel.FromShape(
+            2,
             "     ",
             " XX  ",
             " XX  ",
@@ -24,6 +26,7 @@ namespace Tetris.Game
             "     ");
 
         private static BlockModel Type3 => BlockModel.FromShape(
+            3,
             "     ",
             "   X ",
             "  XX ",
@@ -31,6 +34,7 @@ namespace Tetris.Game
             "     ");
 
         private static BlockModel Type4 => BlockModel.FromShape(
+            4,
             "     ",
             "  X  ",
             "  XX ",
@@ -38,6 +42,7 @@ namespace Tetris.Game
             "     ");
 
         private static BlockModel Type5 => BlockModel.FromShape(
+            5,
             "     ",
             "  X  ",
             "  X  ",
@@ -45,6 +50,7 @@ namespace Tetris.Game
             "     ");
 
         private static BlockModel Type6 => BlockModel.FromShape(
+            6,
             "     ",
             "   X ",
             "   X ",
@@ -52,7 +58,7 @@ namespace Tetris.Game
             "     ");
 
         private static BlockModel Type7 => BlockModel.FromShape(
-            "     ",
+            7,
             "  X  ",
             " XXX ",
             "     ",

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Text;
 using Tetris.Game;
 using Tetris.Game.Render;
@@ -46,9 +47,18 @@ namespace Tetris.Console
                 sb.Append("| ");
                 for (var x = 0; x < grid.GetLength(0); x++)
                 {
-                    var p = grid[x, y] ? "\u2588\u2588" : "  ";
-                    sb.Append(p);
+                    var type = grid[x, y];
+                    if (type != 0)
+                    {
+                        System.Console.ForegroundColor = GetColor(type);
+                        sb.Append("\u2588\u2588");
+                    }
+                    else
+                    {
+                        sb.Append("  ");
+                    }
                 }
+                System.Console.ResetColor();
                 sb.AppendLine($"|{y}");
             }
 
@@ -56,6 +66,28 @@ namespace Tetris.Console
             sb.AppendLine(hLine);
             System.Console.SetCursorPosition(0, 0);
             System.Console.Write(sb.ToString());
+        }
+
+        private static ConsoleColor GetColor(int type)
+        {
+            switch (type)
+            {
+                case 1:
+                    return ConsoleColor.DarkBlue;
+                case 2:
+                    return ConsoleColor.DarkRed;
+                case 3:
+                    return ConsoleColor.DarkGreen;
+                case 4:
+                    return ConsoleColor.DarkCyan;
+                case 5:
+                    return ConsoleColor.DarkMagenta;
+                case 6:
+                    return ConsoleColor.DarkYellow;
+                case 7:
+                    return ConsoleColor.Blue;
+            }
+            return ConsoleColor.White;
         }
     }
 }

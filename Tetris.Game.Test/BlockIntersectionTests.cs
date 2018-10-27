@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using Tetris.Game.Entities;
 
 namespace Tetris.Game.Test
 {
