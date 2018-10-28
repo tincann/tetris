@@ -5,7 +5,7 @@ using Tetris.Game;
 using Tetris.Game.Render;
 using Tetris.Utility;
 
-namespace Tetris.Console
+namespace Tetris.App.Controllers
 {
     public class TetrisConsoleRenderer : ITetrisRenderer
     {

@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Tetris.Game.Constants;
 using Tetris.Game.Controls;
 
-namespace Tetris.Console
+namespace Tetris.App.Controllers
 {
     public class TetrisConsoleController : ITetrisController
     {

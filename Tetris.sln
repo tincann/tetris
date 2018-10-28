@@ -3,16 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2026
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tetris.Console", "Tetris.Console\Tetris.Console.csproj", "{78C13F80-1147-42C4-A281-6EC32A4E9AE4}"
-	ProjectSection(ProjectDependencies) = postProject
-		{ABC75924-0C65-4F20-9229-D5478311D9FB} = {ABC75924-0C65-4F20-9229-D5478311D9FB}
-	EndProjectSection
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tetris.Game", "Tetris.Game\Tetris.Game.csproj", "{352283F2-847E-4B7F-AE35-A54C17AB50CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tetris.Game", "Tetris.Game\Tetris.Game.csproj", "{352283F2-847E-4B7F-AE35-A54C17AB50CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tetris.Utility", "Tetris.Utility\Tetris.Utility.csproj", "{ABC75924-0C65-4F20-9229-D5478311D9FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tetris.Utility", "Tetris.Utility\Tetris.Utility.csproj", "{ABC75924-0C65-4F20-9229-D5478311D9FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tetris.Game.Test", "Tetris.Game.Test\Tetris.Game.Test.csproj", "{77055F3F-B28F-4666-926A-D405F7E1B8D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tetris.Game.Test", "Tetris.Game.Test\Tetris.Game.Test.csproj", "{77055F3F-B28F-4666-926A-D405F7E1B8D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tetris.App", "Tetris.App\Tetris.App.csproj", "{F0AFEFF7-5624-4A39-A52C-796BF68F8A79}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{78C13F80-1147-42C4-A281-6EC32A4E9AE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{78C13F80-1147-42C4-A281-6EC32A4E9AE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{78C13F80-1147-42C4-A281-6EC32A4E9AE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{78C13F80-1147-42C4-A281-6EC32A4E9AE4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{352283F2-847E-4B7F-AE35-A54C17AB50CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{352283F2-847E-4B7F-AE35-A54C17AB50CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{352283F2-847E-4B7F-AE35-A54C17AB50CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -36,6 +29,10 @@ Global
 		{77055F3F-B28F-4666-926A-D405F7E1B8D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77055F3F-B28F-4666-926A-D405F7E1B8D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77055F3F-B28F-4666-926A-D405F7E1B8D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0AFEFF7-5624-4A39-A52C-796BF68F8A79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0AFEFF7-5624-4A39-A52C-796BF68F8A79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0AFEFF7-5624-4A39-A52C-796BF68F8A79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0AFEFF7-5624-4A39-A52C-796BF68F8A79}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
