@@ -11,8 +11,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RGBLedMatrix\RGBLedMatrix.csproj" />
-    <ProjectReference Include="..\Tetris.Game\Tetris.Game.csproj" />
-    <ProjectReference Include="..\Tetris.Utility\Tetris.Utility.csproj" />
   </ItemGroup>
 
 </Project>

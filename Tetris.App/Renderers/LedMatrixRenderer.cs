@@ -1,4 +1,5 @@
-﻿using rpi_rgb_led_matrix_sharp;
+﻿using System;
+using RGBLedMatrix;
 using Tetris.Game;
 using Tetris.Game.Render;
 using Tetris.Utility;
@@ -7,22 +8,51 @@ namespace Tetris.App.Renderers
 {
     public class LedMatrixRenderer : ITetrisRenderer
     {
-        private readonly RGBLedMatrix _matrix;
+        private readonly RGBLedMatrix.RGBLedMatrix _matrix;
         private readonly RGBLedCanvas _canvas;
+        private readonly int _borderWidth;
 
-        public LedMatrixRenderer(int rows, int cols, int brightness)
+        public LedMatrixRenderer(int width, int height, int brightness, bool drawBorder = true)
         {
-            _matrix = new RGBLedMatrix(new RGBLedMatrixOptions { Rows = rows, Cols = cols, Brightness = brightness });
+            _borderWidth = drawBorder ? 1 : 0;
+            _matrix = new RGBLedMatrix.RGBLedMatrix(new RGBLedMatrixOptions { Rows = height, Cols = width, Brightness = brightness, PwmLsbNanoseconds = 200 });
             _canvas = _matrix.CreateOffscreenCanvas();
         }
         public void Render(TetrisGameState state)
         {
+            _canvas.Clear();
+
+            DrawBorder(state);
             DrawBlocks(state);
+
+            _matrix.SwapOnVsync(_canvas);
+        }
+
+        private void DrawBorder(TetrisGameState state)
+        {
+            if (_borderWidth == 0)
+            {
+                return;
+            }
+
+            var x2 = state.Grid.Width + 1;
+            var y2 = state.Grid.Height + 1;
+
+            var borderColor = new Color(50, 50, 50);
+            _canvas.DrawLine(0, 0, 0, y2, borderColor);
+            _canvas.DrawLine(0, 0, x2, 0, borderColor);
+            _canvas.DrawLine(0, y2, x2, y2, borderColor);
+            _canvas.DrawLine(x2, 0, x2, y2, borderColor);
         }
 
         private void DrawBlocks(TetrisGameState state)
         {
-            _canvas.Clear();
+            if (state.Grid.Width > _canvas.Width - 2 * _borderWidth || state.Grid.Height > _canvas.Height - 2 * _borderWidth)
+            {
+                throw new Exception(
+                    $"Game grid ({state.Grid.Width}x{state.Grid.Height}) does not fit inside " +
+                    $"Canvas ({_canvas.Width}x{_canvas.Height}) with Border size ({_borderWidth})");
+            }
 
             var grid = state.Grid.Blocks;
             if (state.ActiveBlock != null)
@@ -39,12 +69,10 @@ namespace Tetris.App.Renderers
                     if (type != 0)
                     {
                         var color = GetColor(type);
-                        _canvas.SetPixel(x, y, color);
+                        _canvas.SetPixel(x + _borderWidth, y + _borderWidth, color);
                     }
                 }
             }
-
-            _matrix.SwapOnVsync(_canvas);
         }
 
         private static Color GetColor(int type)

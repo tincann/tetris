@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Tetris.App": {
+      "commandName": "Project",
+      "commandLineArgs": "--rendermode Console"
+    }
+  }
+}
