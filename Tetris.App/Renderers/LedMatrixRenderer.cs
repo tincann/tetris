@@ -12,10 +12,32 @@ namespace Tetris.App.Renderers
         private readonly RGBLedCanvas _canvas;
         private readonly int _borderWidth;
 
-        public LedMatrixRenderer(int width, int height, int brightness, bool drawBorder = true)
+        public LedMatrixRenderer(
+            int width, 
+            int height, 
+            int brightness, 
+            int ledMultiplexing, 
+            int ledScanmode, 
+            int ledPwmLsbNanoSeconds, 
+            int ledPwmBits,
+            int ledPwmDither,
+            string ledPixelMapper,
+            bool drawBorder = true
+        )
         {
             _borderWidth = drawBorder ? 1 : 0;
-            _matrix = new RGBLedMatrix.RGBLedMatrix(new RGBLedMatrixOptions { Rows = height, Cols = width, Brightness = brightness, PwmLsbNanoseconds = 200 });
+            _matrix = new RGBLedMatrix.RGBLedMatrix(new RGBLedMatrixOptions
+            {
+                Rows = height, 
+                Cols = width, 
+                Brightness = brightness, 
+                PwmLsbNanoseconds = ledPwmLsbNanoSeconds,
+                Multiplexing = ledMultiplexing,
+                ScanMode = ledScanmode,
+                PwmBits = ledPwmBits,
+                PwmDitherBits = ledPwmDither,
+                PixelMapperConfig = ledPixelMapper
+            });
             _canvas = _matrix.CreateOffscreenCanvas();
         }
         public void Render(TetrisGameState state)
