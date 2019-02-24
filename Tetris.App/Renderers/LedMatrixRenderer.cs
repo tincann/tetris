@@ -46,6 +46,7 @@ namespace Tetris.App.Renderers
 
             DrawBorder(state);
             DrawBlocks(state);
+            DrawScore(state);
 
             _matrix.SwapOnVsync(_canvas);
         }
@@ -95,6 +96,15 @@ namespace Tetris.App.Renderers
                     }
                 }
             }
+        }
+
+        private void DrawScore(TetrisGameState state)
+        {
+            var xOffset = 1;
+            var yOffset = state.Grid.Height + 2 * _borderWidth + 1;
+
+            var digitRenderer = new DigitRenderer(_canvas, 4);
+            digitRenderer.RenderNumber(xOffset, yOffset, state.Score);
         }
 
         private static Color GetColor(int type)

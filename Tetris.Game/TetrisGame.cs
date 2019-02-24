@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Threading;
 using Tetris.Game.Constants;
 using Tetris.Game.Controls;
@@ -52,6 +51,26 @@ namespace Tetris.Game
             foreach (var rowNumber in fullRowNumbers)
             {
                 _gameState.Grid.DeleteRowAndShiftDown(rowNumber);
+            }
+
+            var score = CalculateScore(fullRowNumbers.Count);
+            _gameState.Score += score;
+        }
+
+        private int CalculateScore(int numFullRows)
+        {
+            switch (numFullRows)
+            {
+                case 1:
+                    return 40;
+                case 2:
+                    return 100;
+                case 3:
+                    return 300;
+                case 4:
+                    return 1200;
+                default:
+                    return 0;
             }
         }
 
